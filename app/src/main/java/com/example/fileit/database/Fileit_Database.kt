@@ -17,7 +17,7 @@ import androidx.room.RoomDatabase
     Others::class
                      ],
     version = 1,
-    exportSchema = true)
+    exportSchema = false)
 abstract class Fileit_Database : RoomDatabase(){
 
     abstract fun userDao() : userDao

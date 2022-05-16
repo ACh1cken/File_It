@@ -3,15 +3,27 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Android/FileIt/app/src/main/res/layout/activity_main.xml" value="0.21331521739130435" />
+        <entry key="..\:/Android/FileIt/app/src/main/res/drawable/ic_baseline_announcement_24.xml" value="0.1625" />
+        <entry key="..\:/Android/FileIt/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Android/FileIt/app/src/main/res/layout/activity_main_page.xml" value="0.264" />
         <entry key="..\:/Android/FileIt/app/src/main/res/layout/activity_splash_screen.xml" value="0.2" />
         <entry key="..\:/Android/FileIt/app/src/main/res/layout/activity_splash_screen2.xml" value="0.23854166666666668" />
         <entry key="..\:/Android/FileIt/app/src/main/res/layout/activity_splash_screen_with_input.xml" value="0.264" />
         <entry key="..\:/Android/FileIt/app/src/main/res/layout/activity_splash_screen_with_username.xml" value="0.18568840579710144" />
         <entry key="..\:/Android/FileIt/app/src/main/res/layout/fragment__splash_screen_input.xml" value="0.21331521739130435" />
+        <entry key="..\:/Android/FileIt/app/src/main/res/layout/fragment_announcement.xml" value="0.19655797101449277" />
+        <entry key="..\:/Android/FileIt/app/src/main/res/layout/fragment_app_splash_screen.xml" value="0.18614130434782608" />
+        <entry key="..\:/Android/FileIt/app/src/main/res/layout/fragment_create_new_entry.xml" value="0.1" />
         <entry key="..\:/Android/FileIt/app/src/main/res/layout/fragment_f_splash_screen_uname.xml" value="0.21331521739130435" />
+        <entry key="..\:/Android/FileIt/app/src/main/res/layout/fragment_settings.xml" value="0.22826086956521738" />
         <entry key="..\:/Android/FileIt/app/src/main/res/layout/fragment_splash_screen_input.xml" value="0.24010416666666667" />
         <entry key="..\:/Android/FileIt/app/src/main/res/layout/fragment_splash_screen_uname.xml" value="0.23854166666666668" />
+        <entry key="..\:/Android/FileIt/app/src/main/res/layout/fragment_view_existing.xml" value="0.21666666666666667" />
+        <entry key="..\:/Android/FileIt/app/src/main/res/layout/fragment_welcome_page_display.xml" value="0.264" />
+        <entry key="..\:/Android/FileIt/app/src/main/res/layout/fragment_welcome_page_input.xml" value="0.18614130434782608" />
+        <entry key="..\:/Android/FileIt/app/src/main/res/layout/header_layout.xml" value="0.20108695652173914" />
+        <entry key="..\:/Android/FileIt/app/src/main/res/layout/toolbar.xml" value="0.25416666666666665" />
+        <entry key="..\:/Android/FileIt/app/src/main/res/menu/menu.xml" value="0.25416666666666665" />
       </map>
     </option>
   </component>

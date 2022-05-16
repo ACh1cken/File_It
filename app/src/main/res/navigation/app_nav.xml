@@ -3,30 +3,39 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/app_nav"
-    app:startDestination="@id/splashScreen">
-
-    <activity
-        android:id="@+id/splashScreen"
-        android:name="com.example.fileit.SplashScreen"
-        android:label="activity_splash_screen"
-        tools:layout="@layout/activity_splash_screen" />
-    <activity
-        android:id="@+id/splashScreen2"
-        android:name="com.example.fileit.SplashScreen2"
-        android:label="activity_splash_screen2"
-        tools:layout="@layout/activity_splash_screen2" />
+    app:startDestination="@id/appSplashScreen">
     <fragment
-        android:id="@+id/fragment_SplashScreenInput"
-        android:name="com.example.fileit.Fragment_SplashScreenInput"
-        android:label="fragment_splash_screen_input"
-        tools:layout="@layout/fragment_splash_screen_input" >
+        android:id="@+id/appSplashScreen"
+        android:name="com.example.fileit.fragments.AppSplashScreen"
+        android:label="fragment_app_splash_screen"
+        tools:layout="@layout/fragment_app_splash_screen" >
         <action
-            android:id="@+id/action_fragment_SplashScreenInput_to_splashScreenUname"
-            app:destination="@id/splashScreenUname" />
+            android:id="@+id/action_appSplashScreen_to_welcomePageInput"
+            app:destination="@id/welcomePageInput"
+            app:launchSingleTop="true"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
-        android:id="@+id/splashScreenUname"
-        android:name="com.example.fileit.SplashScreenUname"
-        android:label="fragment_f_splash_screen_uname"
-        tools:layout="@layout/fragment_f_splash_screen_uname" />
+        android:id="@+id/welcomePageInput"
+        android:name="com.example.fileit.fragments.WelcomePageInput"
+        android:label="fragment_welcome_page_input"
+        tools:layout="@layout/fragment_welcome_page_input" >
+        <action
+            android:id="@+id/action_welcomePageInput_to_welcomePageDisplay"
+            app:destination="@id/welcomePageDisplay" />
+    </fragment>
+    <fragment
+        android:id="@+id/welcomePageDisplay"
+        android:name="com.example.fileit.fragments.WelcomePageDisplay"
+        android:label="fragment_welcome_page_display"
+        tools:layout="@layout/fragment_welcome_page_display" >
+        <action
+            android:id="@+id/action_welcomePageDisplay_to_mainPage"
+            app:destination="@id/mainPage" />
+    </fragment>
+    <activity
+        android:id="@+id/mainPage"
+        android:name="com.example.fileit.MainPage"
+        android:label="activity_main_page"
+        tools:layout="@layout/activity_main_page" />
 </navigation>

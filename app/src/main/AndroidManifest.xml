@@ -10,39 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FileIt">
         <activity
-            android:name=".SplashScreenWithUsername"
-            android:exported="false" >
-            <intent-filter>
-                <action android:name="package.SplashScreenUname" />
-                <category android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
-        </activity>
-
+            android:name=".MainPage"
+            android:exported="false" />
         <activity
-            android:name=".SplashScreen2"
-            android:exported="false" >
-            <intent-filter>
-                <action android:name="package.SplashScreenUname" />
-                <category android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".SplashScreen"
-            android:exported="true"
-            android:theme="@style/Theme.SplashScreen">
+            android:name=".MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".MainActivity"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="package.MainActivity" />
-
-                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
     </application>

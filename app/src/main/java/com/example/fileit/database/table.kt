@@ -2,30 +2,29 @@ package com.example.fileit.database
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.Index
 import androidx.room.PrimaryKey
 
 //user table
-@Entity(tableName = "user_table")
+@Entity(tableName = "user_table",
+        indices = [Index(value=[
+            "UID"
+        ])]
+)
     data class User(
-        @PrimaryKey(autoGenerate = true)
+        @PrimaryKey
         val UID : Int,
         val user_name : String
     )
 
 
 //year table
-@Entity(tableName = "year", foreignKeys = [
-    ForeignKey (
-        entity = User::class,
-        parentColumns = ["UID"],
-        childColumns = ["UID"],
-        onDelete = ForeignKey.CASCADE
-    )
-])
+@Entity(tableName = "year", indices = [Index(value = [
+    "Year_ID"
+    ])])
     data class Year (
         @PrimaryKey
-        val Year_ID : Int,
-        val UID : Int
+        val Year_ID : Int
     )
 
 //eaform
