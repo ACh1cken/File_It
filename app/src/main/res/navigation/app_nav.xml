@@ -20,6 +20,10 @@
         android:name="com.example.fileit.fragments.WelcomePageInput"
         android:label="fragment_welcome_page_input"
         tools:layout="@layout/fragment_welcome_page_input" >
+        <argument
+            android:name="username"
+            app:argType="string"
+            android:defaultValue="User" />
         <action
             android:id="@+id/action_welcomePageInput_to_welcomePageDisplay"
             app:destination="@id/welcomePageDisplay" />
@@ -29,6 +33,10 @@
         android:name="com.example.fileit.fragments.WelcomePageDisplay"
         android:label="fragment_welcome_page_display"
         tools:layout="@layout/fragment_welcome_page_display" >
+        <argument
+            android:name="username"
+            app:argType="string"
+            android:defaultValue="User" />
         <action
             android:id="@+id/action_welcomePageDisplay_to_mainPage"
             app:destination="@id/mainPage" />

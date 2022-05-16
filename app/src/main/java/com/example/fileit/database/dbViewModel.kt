@@ -21,4 +21,6 @@ class dbViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    fun getUsername(id : Int){}
+
 }
