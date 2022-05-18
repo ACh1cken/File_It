@@ -20,7 +20,4 @@ class dbViewModel(application: Application) : AndroidViewModel(application) {
             repository.addUser(user)
         }
     }
-
-    fun getUsername(id : Int){}
-
 }

@@ -14,9 +14,6 @@ interface userDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addUser(user: User)
 
-    @Query("Select user_name from user_table where UID = :id")
-    fun getUsername(id: Int): String
-
     @Query("Select * from user_table order by UID ASC")
     fun readAllData(): Flow<List<User>>
 

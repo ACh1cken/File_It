@@ -5,7 +5,4 @@ class Repository(private val userDao: userDao) {
         userDao.addUser(user)
     }
 
-    fun getUsername(id : Int){
-        userDao.getUsername(id)
-    }
 }
