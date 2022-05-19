@@ -20,10 +20,10 @@ import org.junit.Assert.*
  */
 class ExampleUnitTest {
 
-//    @Test
-//    fun addition_isCorrect() {
-//        assertEquals(4, 2 + 2)
-//    }
+    @Test
+    fun addition_isCorrect() {
+        assertEquals(4, 2 + 2)
+    }
 
 //    @Test
 //    fun crawlertest(){
@@ -57,48 +57,48 @@ class ExampleUnitTest {
 //                })
 //        }
 //    }
-
-    @Test
-    fun getdata(){
-        println(fetch())
-    }
-
-
-    fun fetch(): List<extractedData>{
-        val extracted = skrape(HttpFetcher){
-            request {
-                url = "https://www.hasil.gov.my/en/announcement/"
-            }
-            response(fun Result.(): List<extractedData> {
-             return htmlDocument{
-                 relaxed=true
-                    div {
-                        withClass = "recordContainer"
-                        table {
-                            tr{
-                                findAll{
-                                    map {
-                                        extractedData(
-                                            announcementDate = it.td{
-                                                findFirst{text}
-                                            },
-                                            announcementLink ="https://www.hasil.gov.my"+ it.a{
-                                                findFirst { attribute("href") }
-                                            },
-                                            announcement = it.a{
-                                                findFirst { text}
-                                            }
-                                        )
-
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-})
-        }
-        return extracted
-    }
+//
+//    @Test
+//    fun getdata(){
+//        println(fetch())
+//    }
+//
+//
+//    fun fetch(): List<extractedData>{
+//        val extracted = skrape(HttpFetcher){
+//            request {
+//                url = "https://www.hasil.gov.my/en/announcement/"
+//            }
+//            response(fun Result.(): List<extractedData> {
+//             return htmlDocument{
+//                 //relaxed=true
+//                    div {
+//                        withClass = "recordContainer"
+//                        table {
+//                            tr{
+//                                findAll{
+//                                    map {
+//                                        extractedData(
+//                                            announcementDate = it.td{
+//                                                findFirst{text}
+//                                            },
+//                                            announcementLink ="https://www.hasil.gov.my"+ it.a{
+//                                                findFirst { attribute("href") }
+//                                            },
+//                                            announcement = it.a{
+//                                                findFirst { text}
+//                                            }
+//                                        )
+//
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//})
+//        }
+//        return extracted
+//    }
 
 }

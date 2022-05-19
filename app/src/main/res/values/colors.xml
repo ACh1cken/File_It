@@ -10,4 +10,9 @@
     <color name="green_100">#413AF805</color>
     <color name="green_500">#3AD61E</color>
     <color name="green_800">#558B2F</color>
+    <color name="blue_1">#F0F5F9</color>
+    <color name="blue_2">#D6E6F2</color>
+    <color name="blue_3">#B9D7EA</color>
+    <color name="blue_4">#769FCD</color>
+
 </resources>
