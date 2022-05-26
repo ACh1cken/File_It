@@ -7,11 +7,11 @@ plugins {
 
 android {
     compileSdk 31
-    packagingOptions {
+
+    packagingOptions{
         pickFirst 'mozilla/public-suffix-list.txt'
         pickFirst 'META-INF/DEPENDENCIES'
     }
-
     defaultConfig {
         applicationId "com.example.fileit"
         minSdk 21
@@ -52,6 +52,7 @@ dependencies {
     implementation "androidx.room:room-runtime:$room_version"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     kapt "androidx.room:room-compiler:$room_version"
+    annotationProcessor("androidx.room:room-compiler:2.4.2")
 // optional - Kotlin Extensions and Coroutines support for Room
     implementation "androidx.room:room-ktx:$room_version"
     testImplementation 'junit:junit:4.13.2'
@@ -64,4 +65,6 @@ dependencies {
 //web crawler skrape{it}
     implementation "it.skrape:skrapeit:1.2.1"
 
+//observeAsState
+    implementation "androidx.compose.runtime:runtime-livedata:1.1.1"
 }
