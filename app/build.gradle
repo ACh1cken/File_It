@@ -2,11 +2,16 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
+    id 'kotlin-android-extensions'
 }
 
 android {
     compileSdk 31
 
+    packagingOptions{
+        pickFirst 'mozilla/public-suffix-list.txt'
+        pickFirst 'META-INF/DEPENDENCIES'
+    }
     defaultConfig {
         applicationId "com.example.fileit"
         minSdk 21
@@ -30,8 +35,12 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    dataBinding{
+        enabled = true
+    }
     buildFeatures {
         viewBinding true
+
     }
 }
 
@@ -46,6 +55,8 @@ dependencies {
 
     implementation "androidx.room:room-runtime:$room_version"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'
     kapt "androidx.room:room-compiler:$room_version"
     annotationProcessor("androidx.room:room-compiler:2.4.2")
 // optional - Kotlin Extensions and Coroutines support for Room
@@ -59,4 +70,7 @@ dependencies {
 
 //web crawler skrape{it}
     implementation "it.skrape:skrapeit:1.2.1"
+
+//observeAsState
+    implementation "androidx.compose.runtime:runtime-livedata:1.1.1"
 }

@@ -1,17 +1,13 @@
 package com.example.fileit
 
-import android.provider.Browser
-import com.example.fileit.webcrawler.extractedData
+import com.example.fileit.webcrawler.ExtractedData
 import it.skrape.core.htmlDocument
-import it.skrape.fetcher.*
-import it.skrape.matchers.toBe
-import it.skrape.matchers.toBePresentExactlyOnce
+import it.skrape.fetcher.HttpFetcher
+import it.skrape.fetcher.Result
+import it.skrape.fetcher.response
+import it.skrape.fetcher.skrape
 import it.skrape.selects.html5.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import org.junit.Test
-
-import org.junit.Assert.*
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -64,21 +60,23 @@ class ExampleUnitTest {
     }
 
 
-    fun fetch(): List<extractedData>{
+    fun fetch(): List<ExtractedData>{
         val extracted = skrape(HttpFetcher){
             request {
-                url = "https://www.hasil.gov.my/en/announcement/"
+                url = "http://webcache.googleusercontent.com/search?q=cache:https://www.hasil.gov.my/en/announcement/"
             }
-            response(fun Result.(): List<extractedData> {
+            response(fun Result.(): List<ExtractedData> {
+                println(responseStatus)
              return htmlDocument{
                  relaxed=true
+
                     div {
                         withClass = "recordContainer"
                         table {
                             tr{
                                 findAll{
                                     map {
-                                        extractedData(
+                                        ExtractedData(
                                             announcementDate = it.td{
                                                 findFirst{text}
                                             },
