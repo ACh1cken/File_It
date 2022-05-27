@@ -33,6 +33,7 @@ class AnnouncementFragment : Fragment() {
         val announcementadapter = AnnouncementRecyclerAdapter()
         recyclerview.adapter = announcementadapter
         recyclerview.layoutManager = LinearLayoutManager(activity)
+        recyclerview.setHasFixedSize(false)
 
         model.extractedData.observe(viewLifecycleOwner) { list ->
             announcementadapter.setData(list)

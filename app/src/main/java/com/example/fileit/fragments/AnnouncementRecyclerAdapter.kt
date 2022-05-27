@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
@@ -25,17 +26,22 @@ class AnnouncementRecyclerAdapter : RecyclerView.Adapter<AnnouncementRecyclerAda
 
 
     override fun onBindViewHolder(holder: AnnouncementRecyclerAdapter.ViewHolder, position: Int) {
-        val index : Int
-        if (position == extractedData.size){
-           index = position
-        }else {
-            index = position + 1
-        }
-        val currentItem = extractedData[index]
+//        val index : Int
+//        if (position == extractedData.size){
+//           index = position
+//        }else {
+//            index = position + 1
+//        }
+        val currentItem = extractedData[position]
         Log.e("BIND","LOG: CALLED BIND")
-        println(currentItem)
-        holder.textViewAnnouncement.text = currentItem.announcement
-        holder.textViewDate.text =currentItem.announcementDate
+        if (currentItem.announcement.isNullOrBlank()){
+            holder.itemView.layoutParams = LinearLayout.LayoutParams(0,0)
+            println(currentItem.announcement.isNullOrBlank())
+        }else {
+            println(currentItem)
+            holder.textViewAnnouncement.text = currentItem.announcement
+            holder.textViewDate.text = currentItem.announcementDate
+        }
     }
 
 
