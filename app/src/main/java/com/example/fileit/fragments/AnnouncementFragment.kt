@@ -1,6 +1,9 @@
 package com.example.fileit.fragments
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,16 +14,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fileit.R
 import com.example.fileit.webcrawler.webcrawler
-import kotlinx.android.synthetic.main.fragment_announcement.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
-import java.lang.Exception
-import java.net.SocketException
-import java.net.SocketTimeoutException
 
 
-class AnnouncementFragment : Fragment() {
+class AnnouncementFragment : Fragment() , AnnouncementRecyclerAdapter.onClickListener{
     private lateinit var job : CompletableJob
 //    val supervisor = SupervisorJob()
 //    private lateinit var datalist : List<ExtractedData>
@@ -30,7 +29,7 @@ class AnnouncementFragment : Fragment() {
 
         val recyclerview = view.findViewById<RecyclerView>(R.id.announcementRecyclerView)
 
-        val announcementadapter = AnnouncementRecyclerAdapter()
+        val announcementadapter = AnnouncementRecyclerAdapter(this)
         recyclerview.adapter = announcementadapter
         recyclerview.layoutManager = LinearLayoutManager(activity)
         recyclerview.setHasFixedSize(false)
@@ -100,5 +99,15 @@ class AnnouncementFragment : Fragment() {
             }
         }
     }
+
+    override fun onItemClick(string: String?) {
+        //showToast("Test"+ position)
+        Log.e("Click", " $string")
+        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(string)))
+    }
+
+
+
+    
 
 }
