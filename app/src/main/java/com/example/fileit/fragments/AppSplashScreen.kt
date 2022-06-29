@@ -22,7 +22,7 @@ class AppSplashScreen : Fragment() {
         val view =  inflater.inflate(R.layout.fragment_app_splash_screen, container, false)
 
         Handler(Looper.myLooper()!!).postDelayed({
-            findNavController().navigate(R.id.welcomePageInput)
+            findNavController().navigate(R.id.loginActivity)
         },4000)
 
         return view

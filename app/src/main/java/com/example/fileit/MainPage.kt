@@ -1,5 +1,6 @@
 package com.example.fileit
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
@@ -11,8 +12,12 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.*
+import com.example.fileit.auth.LoginActivity
+import com.example.fileit.auth.SignupActivity
 import com.example.fileit.fragments.AnnouncementFragment
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuth.AuthStateListener
 import kotlinx.android.synthetic.main.activity_main_page.*
 
 
@@ -23,10 +28,22 @@ class MainPage : AppCompatActivity() {
     private lateinit var navigationView: NavigationView
     private lateinit var appBarConfiguration: AppBarConfiguration
 
+    private lateinit var auth: FirebaseAuth
+    private lateinit var authStateListener: FirebaseAuth.AuthStateListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_page)
+
+        auth = FirebaseAuth.getInstance()
+        authStateListener = AuthStateListener {
+            val user = auth.currentUser
+            if (user == null) {
+                val intent = Intent(this, SignupActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+        }
 
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
@@ -55,6 +72,7 @@ class MainPage : AppCompatActivity() {
                 }
                 R.id.createNewEntry -> {
                     fragmentContainerView2.findNavController().navigate(R.id.createNewEntry)
+//                    fragmentContainerView2.findNavController().navigate(R.id.appStorage)
                     drawerLayout.closeDrawer (GravityCompat.START)
                 }
                 R.id.settingsFragment -> {

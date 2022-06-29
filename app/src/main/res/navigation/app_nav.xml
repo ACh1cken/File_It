@@ -10,40 +10,12 @@
         android:label="fragment_app_splash_screen"
         tools:layout="@layout/fragment_app_splash_screen" >
         <action
-            android:id="@+id/action_appSplashScreen_to_welcomePageInput"
-            app:destination="@id/welcomePageInput"
-            app:launchSingleTop="true"
-            app:popUpToInclusive="true" />
-    </fragment>
-    <fragment
-        android:id="@+id/welcomePageInput"
-        android:name="com.example.fileit.fragments.WelcomePageInput"
-        android:label="fragment_welcome_page_input"
-        tools:layout="@layout/fragment_welcome_page_input" >
-        <argument
-            android:name="username"
-            app:argType="string"
-            android:defaultValue="User" />
-        <action
-            android:id="@+id/action_welcomePageInput_to_welcomePageDisplay"
-            app:destination="@id/welcomePageDisplay" />
-    </fragment>
-    <fragment
-        android:id="@+id/welcomePageDisplay"
-        android:name="com.example.fileit.fragments.WelcomePageDisplay"
-        android:label="fragment_welcome_page_display"
-        tools:layout="@layout/fragment_welcome_page_display" >
-        <argument
-            android:name="username"
-            app:argType="string"
-            android:defaultValue="User" />
-        <action
-            android:id="@+id/action_welcomePageDisplay_to_mainPage"
-            app:destination="@id/mainPage" />
+            android:id="@+id/action_appSplashScreen_to_loginActivity2"
+            app:destination="@id/loginActivity" />
     </fragment>
     <activity
-        android:id="@+id/mainPage"
-        android:name="com.example.fileit.MainPage"
-        android:label="activity_main_page"
-        tools:layout="@layout/activity_main_page" />
+        android:id="@+id/loginActivity"
+        android:name="com.example.fileit.auth.LoginActivity"
+        android:label="activity_login"
+        tools:layout="@layout/activity_login" />
 </navigation>
