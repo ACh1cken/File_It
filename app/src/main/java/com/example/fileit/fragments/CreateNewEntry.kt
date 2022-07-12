@@ -5,21 +5,27 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Spinner
+import android.widget.*
+import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.navOptions
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.fileit.R
 import com.example.fileit.storage.DocumentAdapter
 import com.example.fileit.storage.DocumentModel
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import kotlinx.android.synthetic.main.activity_main_page.*
 import kotlinx.android.synthetic.main.fragment_create_new_entry.*
 import org.apache.commons.lang3.ObjectUtils
 import java.util.*
+import kotlin.properties.Delegates
 
 
 class CreateNewEntry : Fragment(){
@@ -33,6 +39,10 @@ class CreateNewEntry : Fragment(){
     val userUid = FirebaseAuth.getInstance().uid
     private val docRef = db.collection("users").document(userUid!!).collection("documents")
     var documentAdapter : DocumentAdapter? =null
+    var queryDirection = Query.Direction.ASCENDING
+    private lateinit var recyclerView: RecyclerView
+    private var Ascending = true
+
     //endOfFirebase
 
     override fun onCreateView(
@@ -70,8 +80,15 @@ class CreateNewEntry : Fragment(){
 
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                Log.e("Spinner",p0!!.getItemAtPosition(p2).toString())
+
                 bundle.putString("Year",p0!!.getItemAtPosition(p2).toString())
+                Log.e("Spinner",bundle.get("Year").toString())
+
+                documentAdapter?.stopListening()
+                setupRecyclerViewSpecific(bundle.get("Year").toString())
+
+                documentAdapter!!.startListening()
+                recyclerView.adapter!!.notifyDataSetChanged()
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -80,21 +97,92 @@ class CreateNewEntry : Fragment(){
             }
 
         }
+        recyclerView = view.findViewById(R.id.new_entry_recyclerview)
 
-        setupRecyclerView()
+        //used to prevent error on onStart and onDestroy
+        setupRecyclerViewDefault()
+
+        //Start of ButtonListener
+        view.findViewById<FloatingActionButton>(R.id.createNewEntryFloatingButton)
+            .setOnClickListener{
+                fragmentContainerView2.findNavController().navigate(R.id.newEntryDetailsFragment,null,
+                    navOptions {
+                        anim {
+                            enter = android.R.anim.slide_in_left
+                            exit = android.R.anim.slide_out_right
+                        }
+                    })
+                //requireActivity().toolbar!!.visibility = View.GONE
+
+            }
+
+
+        view.findViewById<ImageButton>(R.id.EntrySortButton)
+            .setOnClickListener{
+            Ascending = if(Ascending) {
+                EntrySortButton.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_24)
+                queryDirection = Query.Direction.DESCENDING
+                //
+                documentAdapter?.stopListening()
+                setupRecyclerViewSpecific(bundle.get("Year").toString())
+
+                documentAdapter!!.startListening()
+                recyclerView.adapter!!.notifyDataSetChanged()
+                //
+                false
+            }else{
+                EntrySortButton.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24)
+                queryDirection = Query.Direction.ASCENDING
+                //
+                documentAdapter?.stopListening()
+                setupRecyclerViewSpecific(bundle.get("Year").toString())
+
+                documentAdapter!!.startListening()
+                recyclerView.adapter!!.notifyDataSetChanged()
+                //
+                true
+            }
+        }
+
+
+        //Endof Buttono Listener
 
         return view
     }
 
-    private fun setupRecyclerView() {
+    private fun setupRecyclerViewDefault() {
         val query: Query = docRef
+            .orderBy("timestamp",queryDirection)
+            .limit(50)
+
         val firestoreRecycler : FirestoreRecyclerOptions<DocumentModel> = FirestoreRecyclerOptions.Builder<DocumentModel>()
             .setQuery(query,DocumentModel::class.java)
             .build()
 
-         documentAdapter = DocumentAdapter(firestoreRecycler)
-        new_entry_recyclerview.layoutManager = LinearLayoutManager(this.context)
-        new_entry_recyclerview.adapter = documentAdapter
+        documentAdapter = DocumentAdapter(firestoreRecycler)
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.adapter = documentAdapter
+
+    }
+
+    private fun setupRecyclerViewSpecific(year: String){
+
+        val query : Query = if (year != "All"){
+            docRef
+                .whereEqualTo("year",year)
+                .orderBy("timestamp",queryDirection)
+                .limit(50)
+        }else {
+            docRef
+                .orderBy("timestamp",queryDirection)
+                .limit(50)
+        }
+
+        val firestoreRecycler : FirestoreRecyclerOptions<DocumentModel> = FirestoreRecyclerOptions.Builder<DocumentModel>()
+            .setQuery(query,DocumentModel::class.java)
+            .build()
+        documentAdapter = DocumentAdapter(firestoreRecycler)
+        recyclerView.adapter = documentAdapter
     }
 
     override fun onStart() {
@@ -102,13 +190,15 @@ class CreateNewEntry : Fragment(){
         documentAdapter!!.startListening()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onStop() {
+        super.onStop()
         documentAdapter!!.stopListening()
     }
 
+
     fun populateArray(year: Int): Array<String>{
-       var array = Array(20) { i -> (year +5 - i).toString() }
+       var array = Array(30) { i -> (year +2 - i).toString() }
+        array[0] = "All"
         return array
     }
 

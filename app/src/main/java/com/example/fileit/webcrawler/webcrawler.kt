@@ -1,5 +1,6 @@
 package com.example.fileit.webcrawler
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,7 +12,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 
-data class ExtractedData(
+data class ExtractedData (
     var announcement: String?,
     var announcementLink: String?,
     var announcementDate: String?,
@@ -27,16 +28,19 @@ data class ExtractedDataDetails(
 class webcrawler : ViewModel() {
     private var _extractedData: MutableLiveData<List<ExtractedData>> = MutableLiveData(emptyList())
     var extractedData: LiveData<List<ExtractedData>> = _extractedData
+    var _initCount : Int = 0
 
     init {
-        CoroutineScope(IO).launch {
-            updateData()
+        Log.e("ViewModel","Created")
         }
 
+    fun updateInit(){
+        _initCount++
     }
 
     fun updateData() {
         viewModelScope.launch {
+
             _extractedData.postValue(fetch())
             println(extractedData)
             extractedData = _extractedData

@@ -11,10 +11,11 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navOptions
 import androidx.navigation.ui.*
-import com.example.fileit.auth.LoginActivity
 import com.example.fileit.auth.SignupActivity
 import com.example.fileit.fragments.AnnouncementFragment
+import com.example.fileit.webcrawler.webcrawler
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuth.AuthStateListener
@@ -63,20 +64,48 @@ class MainPage : AppCompatActivity() {
             Log.e("Listener","Listener called")
             when(it.itemId) {
                 R.id.announcementFragment -> {
-                    fragmentContainerView2.findNavController().navigate(R.id.announcementFragment)
+                    fragmentContainerView2.findNavController().navigate(R.id.announcementFragment,
+                        null,
+                        navOptions {
+                            anim {
+                                enter = android.R.animator.fade_in
+                                exit = android.R.animator.fade_out
+                            }
+                        })
                     drawerLayout.closeDrawer(GravityCompat.START)
                 }
                 R.id.viewExistingFragment -> {
-                    fragmentContainerView2.findNavController().navigate(R.id.viewExistingFragment)
+                    fragmentContainerView2.findNavController().navigate(R.id.viewExistingFragment,
+                        null,
+                        navOptions {
+                            anim {
+                                enter = android.R.animator.fade_in
+                                exit = android.R.animator.fade_out
+                            }
+                        })
                     drawerLayout.closeDrawer(GravityCompat.START)
                 }
                 R.id.createNewEntry -> {
-                    fragmentContainerView2.findNavController().navigate(R.id.createNewEntry)
+                    fragmentContainerView2.findNavController().navigate(R.id.createNewEntry,
+                        null,
+                        navOptions {
+                            anim {
+                                enter = android.R.animator.fade_in
+                                exit = android.R.animator.fade_out
+                            }
+                        })
 //                    fragmentContainerView2.findNavController().navigate(R.id.appStorage)
                     drawerLayout.closeDrawer (GravityCompat.START)
                 }
                 R.id.settingsFragment -> {
-                    fragmentContainerView2.findNavController().navigate(R.id.settingsFragment)
+                    fragmentContainerView2.findNavController().navigate(R.id.settingsFragment,
+                        null,
+                        navOptions {
+                            anim {
+                                enter = android.R.animator.fade_in
+                                exit = android.R.animator.fade_out
+                            }
+                        })
                     drawerLayout.closeDrawer(GravityCompat.START)
                 }
             }
