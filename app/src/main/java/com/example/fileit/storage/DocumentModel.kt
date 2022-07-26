@@ -17,6 +17,7 @@ class DocumentModel
       @ServerTimestamp
      var timestamp: Date? = null
      var filename: String = ""
+     var fileAmount: Int = 0
 
      constructor()
 

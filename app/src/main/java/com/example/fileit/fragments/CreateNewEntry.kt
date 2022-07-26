@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
@@ -18,14 +17,11 @@ import com.example.fileit.storage.DocumentModel
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.activity_main_page.*
 import kotlinx.android.synthetic.main.fragment_create_new_entry.*
-import org.apache.commons.lang3.ObjectUtils
 import java.util.*
-import kotlin.properties.Delegates
 
 
 class CreateNewEntry : Fragment(){
@@ -159,7 +155,7 @@ class CreateNewEntry : Fragment(){
             .setQuery(query,DocumentModel::class.java)
             .build()
 
-        documentAdapter = DocumentAdapter(firestoreRecycler)
+        documentAdapter = DocumentAdapter(firestoreRecycler,context)
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = documentAdapter
 
@@ -181,7 +177,7 @@ class CreateNewEntry : Fragment(){
         val firestoreRecycler : FirestoreRecyclerOptions<DocumentModel> = FirestoreRecyclerOptions.Builder<DocumentModel>()
             .setQuery(query,DocumentModel::class.java)
             .build()
-        documentAdapter = DocumentAdapter(firestoreRecycler)
+        documentAdapter = DocumentAdapter(firestoreRecycler, context)
         recyclerView.adapter = documentAdapter
     }
 

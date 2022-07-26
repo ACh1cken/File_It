@@ -14,6 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
@@ -26,6 +27,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import kotlinx.android.synthetic.main.activity_main_page.*
+import kotlinx.android.synthetic.main.fragment_appstorage.*
 import kotlinx.android.synthetic.main.fragment_new_entry_details.*
 import java.util.Calendar
 
@@ -44,10 +46,11 @@ class NewEntryDetailsFragment : Fragment() {
     private var progressBarProgress :Int = 0
     private var fileUploadProgressBar: ProgressBar? = null
     private lateinit var fileUploadProgressBarText : TextView
+    private lateinit var submitButton : Button
 
 
 
-    //Firebase Related
+    //Firebase Related boilerplate code
     private lateinit var storage: FirebaseStorage
     private lateinit var userUid: String
     private lateinit var userEmail: String
@@ -76,7 +79,7 @@ class NewEntryDetailsFragment : Fragment() {
         val fileAmountEditText = view.findViewById<EditText>(R.id.new_entry_details_amount_editText)
 
         val fileUploadButton = view.findViewById<ImageButton>(R.id.fileUploadButton)
-        val submitButton = view.findViewById<Button>(R.id.new_entry_details_submitButton)
+        submitButton = view.findViewById<Button>(R.id.new_entry_details_submitButton)
         fileUploadProgressBarText = view.findViewById(R.id.new_entry_details_uploadProgress_textView)
         fileUploadProgressBar = view.findViewById(R.id.new_entry_details_upload_progressbar)
 
@@ -166,23 +169,7 @@ class NewEntryDetailsFragment : Fragment() {
             updateProgress()
         }
 
-        submitButton.setOnClickListener {
-            if(progressBarProgress >= 100){
-                fragmentContainerView2.findNavController().navigate(R.id.announcementFragment, null,
-                    navOptions {
-                        anim {
-                            enter = android.R.animator.fade_in
-                            exit = android.R.animator.fade_out
-                        }
-                    })
 
-                upload(fileUri!!, bundle.get("fileName").toString())
-
-                requireActivity().toolbar!!.visibility = View.VISIBLE
-            }else{
-                Toast.makeText(context,"Please fill out all required fields.",Toast.LENGTH_SHORT).show()
-            }
-        }
 
 
         fileNameEditText.addTextChangedListener(object : TextWatcher{
@@ -256,9 +243,15 @@ class NewEntryDetailsFragment : Fragment() {
                             Count[0]++
                             Handler(Looper.getMainLooper()).postDelayed(Runnable {
                                 if (fileAmountEditText.text.isNotEmpty()){
-                                    bundle.putString("amount",fileAmountEditText.text.toString())
+                                    var int1 = 0
+                                    try{
+                                        int1 = Integer.parseInt(fileAmountEditText.text.toString())
+                                    }catch (nfe:NumberFormatException){
+                                        Toast.makeText(context,"This is not a proper number: $nfe",Toast.LENGTH_SHORT).show()
+                                    }
+                                    bundle.putInt("amount",int1)
                                 }else{
-                                    bundle.putString("amount",null)
+                                    bundle.putInt("amount",0)
                                 }
                                 Log.e("EditText",bundle.get("amount").toString())
 
@@ -270,14 +263,13 @@ class NewEntryDetailsFragment : Fragment() {
                 })
 
 
-
         return view
 
     }
 
 
 
-    fun chooseFile(){
+    private fun chooseFile(){
         val intent = Intent(Intent.ACTION_GET_CONTENT)
         intent.type = "*/*"
         intent.addCategory(Intent.CATEGORY_OPENABLE)
@@ -297,7 +289,9 @@ class NewEntryDetailsFragment : Fragment() {
                     Log.e("FileUri", it.data!!.data.toString())
                     fileUri = it.data!!.data
                     var filename = it.data!!.data!!.lastPathSegment
-                    //upload(fileUri!!,filename!!)
+
+                    //UploadFile
+                    upload(fileUri!!,bundle.get("fileName").toString())
 //                    uploadProgressBar?.visibility = View.VISIBLE
                 }else{
                     Log.e("FileUri","NULL")
@@ -306,7 +300,7 @@ class NewEntryDetailsFragment : Fragment() {
         }
 
 
-    fun upload(uri: Uri,filename : String){
+    private fun upload(uri: Uri, filename : String){
 //        var file = Uri.fromFile(File(uri))
         val uploadRef = storageChildRef.child(filename)
         var uploadtask = uploadRef.putFile(uri)
@@ -318,12 +312,34 @@ class NewEntryDetailsFragment : Fragment() {
             uploadRef.downloadUrl.addOnSuccessListener{
 //                uploadProgressBar?.visibility = View.GONE
                 Log.e("DownloadUrl",it.toString())
-                //TODO
-                updateDB(it,bundle.getString("fileYear").toString(),
-                    bundle.getString("fileType").toString(),
-                    bundle.getString("additional_description").toString(),
-                    filename
-                )
+
+                submitButton.setBackgroundColor(ContextCompat.getColor(requireActivity().applicationContext,R.color.teal_200))
+
+                submitButton.setOnClickListener {
+                    if(progressBarProgress >= 100){
+                        fragmentContainerView2.findNavController().navigate(R.id.announcementFragment, null,
+                            navOptions {
+                                anim {
+                                    enter = android.R.animator.fade_in
+                                    exit = android.R.animator.fade_out
+                                }
+                            })
+
+//                upload(fileUri!!, bundle.get("fileName").toString())
+                        //Submit details to db
+                        updateDB(fileUri!!,bundle.getString("fileYear").toString(),
+                            bundle.getString("fileType").toString(),
+                            bundle.getString("additional_description").toString(),
+                            bundle.getString("filename").toString(),
+                            bundle.getInt("amount")
+                        )
+                        requireActivity().toolbar!!.visibility = View.VISIBLE
+                    }else{
+                        Toast.makeText(context,"Please fill out all required fields.",Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+
             }
 
 
@@ -339,7 +355,7 @@ class NewEntryDetailsFragment : Fragment() {
 
     }
 
-    fun updateDB(url: Uri, year: String, docType:String, additional_name: String?, filename: String){
+    private fun updateDB(url: Uri, year: String, docType:String, additional_name: String?, filename: String, fileAmount : Int){
         val db = Firebase.firestore
         val userRef = db.collection("users").document(userUid)
         var dnum : Int
@@ -364,7 +380,7 @@ class NewEntryDetailsFragment : Fragment() {
                             dnum = docSnapshot.get("d_num").toString().toInt()
                             Log.e("d_Num", "$dnum")
 
-                            userRef.collection("documents").document("doc_$dnum").set(
+                            userRef.collection("documents").document().set(
                                 Documents(
                                     year = year,
                                     additional_name = additional_name,
@@ -372,7 +388,8 @@ class NewEntryDetailsFragment : Fragment() {
                                     downloadURL = url.toString(),
                                     userUid = userUid,
                                     timestamp = FieldValue.serverTimestamp(),
-                                    filename = filename
+                                    filename = filename,
+                                    fileAmount = fileAmount
                                 )
                             )
                         }
@@ -392,7 +409,7 @@ class NewEntryDetailsFragment : Fragment() {
                             dnum = docSnapshot.get("d_num").toString().toInt()
                             Log.e("d_Num", "$dnum")
 
-                            userRef.collection("documents").document("doc_$dnum").set(
+                            userRef.collection("documents").document().set(
                                 Documents(
                                     year = year,
                                     additional_name = additional_name,
@@ -400,12 +417,15 @@ class NewEntryDetailsFragment : Fragment() {
                                     downloadURL = url.toString(),
                                     userUid = userUid,
                                     timestamp = FieldValue.serverTimestamp(),
-                                    filename = filename
+                                    filename = filename,
+                                    fileAmount = fileAmount
                                 )
                             )
                         }
                     }
             }
+
+
 
         }
             .addOnFailureListener{
@@ -446,6 +466,7 @@ class NewEntryDetailsFragment : Fragment() {
         var userUid: String,
         var downloadURL: String,
         var timestamp: FieldValue?,
-        var filename: String
+        var filename: String,
+        var fileAmount: Int
     )
 }
