@@ -15,11 +15,7 @@ import com.example.fileit.storage.FirestoreViewModel
 
 
 class ViewExistingFragment : Fragment() {
-//TODO
-    //search bar
-    //delete  /entry details
-    //select all
-    //
+
 private val viewModel : FirestoreViewModel by activityViewModels()
     //Firebase Related boilerplate code
 //    private val db = FirebaseFirestore.getInstance()
