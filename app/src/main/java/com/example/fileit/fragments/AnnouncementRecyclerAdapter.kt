@@ -43,9 +43,9 @@ val listener: onClickListener
 //        Log.e("BIND","LOG: CALLED BIND")
         if (currentItem.announcement.isNullOrBlank()){
             holder.itemView.layoutParams = LinearLayout.LayoutParams(0,0)
-            println(currentItem.announcement.isNullOrBlank())
+//            println(currentItem.announcement.isNullOrBlank())
         }else {
-            println(currentItem)
+//            println(currentItem)
             holder.textViewAnnouncement.text = currentItem.announcement
             holder.textViewDate.text = currentItem.announcementDate
             //holder.itemView.setOnClickListener { view -> onClickListener.invoke(view,currentItem.announcementLink) }

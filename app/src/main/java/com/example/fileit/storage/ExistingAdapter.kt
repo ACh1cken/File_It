@@ -74,7 +74,7 @@ class ExpandableAdapter(
 //                .getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 //            convertView = layoutInflater.inflate(R.layout.view_existing_cardview, null)
 
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.view_existing_cardview,null);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.view_existing_cardview,null)
 
         }
 
@@ -138,7 +138,7 @@ class ExpandableAdapter(
 //                this.mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 //            convertView = layoutInflater.inflate(R.layout.view_existing_listgroup, null)
 //
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.view_existing_listgroup,null);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.view_existing_listgroup,null)
         }
         val listTitleTextView = convertView!!.findViewById<TextView>(R.id.listTitle)
         listTitleTextView.setTypeface(null, Typeface.BOLD)
@@ -170,7 +170,7 @@ class ExpandableAdapter(
                 .setTitle(filename)
                 .setDescription("Downloading file...")
                 .setDestinationInExternalFilesDir(mContext,Environment.DIRECTORY_DOWNLOADS,filename)
-                .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
 
         val downloadID = dm.enqueue(request)
 

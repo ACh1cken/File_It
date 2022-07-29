@@ -128,7 +128,7 @@ class NewEntryDetailsFragment : Fragment() {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
 
                 if (p0!!.getItemAtPosition(p2).toString()!= "-Select File Type-") {
-                    bundle.putString("fileType", p0!!.getItemAtPosition(p2).toString())
+                    bundle.putString("fileType", p0.getItemAtPosition(p2).toString())
 //                    Log.e("FileTypeSpinner", bundle.get("fileType").toString())
                     if(!hasSelectedFileType) {
                         progressBarProgress += 25
@@ -148,7 +148,7 @@ class NewEntryDetailsFragment : Fragment() {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
 
                 if (p0!!.getItemAtPosition(p2).toString()!= "-Select Year-") {
-                    bundle.putString("fileYear", p0!!.getItemAtPosition(p2).toString())
+                    bundle.putString("fileYear", p0.getItemAtPosition(p2).toString())
 //                    Log.e("Spinner", bundle.get("fileYear").toString())
                     if (!hasSelectedYearSpinner) {
                         progressBarProgress += 25
@@ -166,7 +166,7 @@ class NewEntryDetailsFragment : Fragment() {
 
         }
 
-        fileUploadButton.setOnClickListener(){
+        fileUploadButton.setOnClickListener {
             chooseFile()
             progressBarProgress += 25
             updateProgress()
@@ -395,7 +395,7 @@ class NewEntryDetailsFragment : Fragment() {
 //                Log.e("Progress","Current progress $progress Size: ${it.totalByteCount}")
                 fileUploadProgressBar!!.progress = progress.toInt()
 
-                fileUploadProgressBarText.setText("$progress%")
+                fileUploadProgressBarText.text = "$progress%"
             }
 
     }
