@@ -57,8 +57,4 @@ private val viewModel : FirestoreViewModel by activityViewModels()
     }
 
 
-    override fun onStop() {
-//        viewModel.stopListener()
-        super.onStop()
-    }
 }

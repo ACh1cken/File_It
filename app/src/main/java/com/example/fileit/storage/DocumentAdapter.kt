@@ -45,11 +45,6 @@ class DocumentAdapter(options: FirestoreRecyclerOptions<DocumentModel>, context:
 
     }
 
-    override fun onError(e: FirebaseFirestoreException) {
-//        Log.e("FirestoreRecycler",e.message!!)
-        super.onError(e)
-    }
-
     class DocumentViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
         var filename = itemView.findViewById<TextView>(R.id.new_entry_filename_textview)
         var fileyear = itemView.findViewById<TextView>(R.id.new_entry_fileYear_textview)
@@ -57,7 +52,7 @@ class DocumentAdapter(options: FirestoreRecyclerOptions<DocumentModel>, context:
     }
 
     private fun showPopup(view: View, model: DocumentModel){
-        val popup_view = LayoutInflater.from(mContext).inflate(R.layout.popup_layout,null);
+        val popup_view = LayoutInflater.from(mContext).inflate(R.layout.popup_layout,null)
         val popupWindow  = PopupWindow(popup_view,LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT,true)
         popupWindow.showAtLocation(view,Gravity.CENTER,0,0)
         val dismissButton = popup_view.findViewById<ImageButton>(R.id.close_popup_button)
@@ -82,7 +77,7 @@ class DocumentAdapter(options: FirestoreRecyclerOptions<DocumentModel>, context:
         }
 
 
-        dismissButton.setOnClickListener(){
+        dismissButton.setOnClickListener {
 //            Log.e("Popup","Dismissed")
             popupWindow.dismiss()
         }

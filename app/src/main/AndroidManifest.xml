@@ -13,7 +13,10 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/fileit_logo"
         android:supportsRtl="true"
+        android:name="android.support.multidex.MultiDexApplication"
         android:theme="@style/Theme.FileIt">
+
+
         <activity
             android:name=".auth.ForgotPasswordActivity"
             android:screenOrientation="portrait"
@@ -47,7 +50,7 @@
         </activity>
 
         <receiver android:name=".reminder.BootReceiver"
-            android:enabled="true"
+            android:enabled="false"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>

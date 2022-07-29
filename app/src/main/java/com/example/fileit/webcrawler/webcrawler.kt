@@ -42,6 +42,7 @@ class webcrawler : ViewModel() {
             _extractedData.postValue(fetch())
             println(extractedData)
             extractedData = _extractedData
+//            Log.e("Extracted","$extractedData")
         }
     }
 
@@ -58,15 +59,16 @@ class webcrawler : ViewModel() {
         val extracted = skrape(HttpFetcher) {
                 request {
                     method = Method.GET
+//                    Log.e("method","$method")
                     followRedirects = false
                     //access cached copy because cant bypass anti crawler protection
-                    url = "http://webcache.googleusercontent.com/search?q=cache:https://www.hasil.gov.my/en/announcement/"
+                    url = "https://webcache.googleusercontent.com/search?q=cache:https://www.hasil.gov.my/en/announcement/"
                     //url = "https://www.hasil.gov.my/en/announcement/"
                     timeout =15000
                     userAgent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"
                 }
             response(fun Result.(): List<ExtractedData> {
-            println(responseStatus)
+//            Log.e("Response Status","$responseStatus")
                 return htmlDocument {
                     relaxed = true
                     div {
