@@ -7,7 +7,7 @@ import android.content.Context.DOWNLOAD_SERVICE
 import android.graphics.Typeface
 import android.net.Uri
 import android.os.Environment
-import android.util.Log
+//import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,11 +40,11 @@ class ExpandableAdapter(
 
     fun setTitleData(header:ArrayList<String>){
         this.headerItem =header
-        Log.e("Observer","TitleListObserver")
+//        Log.e("Observer","TitleListObserver")
     }
     fun setDetailData(child:HashMap<String,MutableList<DocumentModel>>){
         this.childItem = child
-        Log.e("Observer","DetailListObserver")
+//        Log.e("Observer","DetailListObserver")
     }
 
     override fun getChild(headerPos: Int, childPos: Int): DocumentModel {

@@ -24,15 +24,12 @@ class WelcomePageDisplay : Fragment() {
         // Inflate the layout for this fragment
        val view =  inflater.inflate(R.layout.fragment_welcome_page_display, container, false)
 
-        //TODO("ADD IN DISPLAY FROM DB")
+
 
         val usernameDisplay = view.findViewById<TextView>(R.id.username_display)
         usernameDisplay.text  = arguments?.getString("user_name")
 
 
-//        Handler(Looper.myLooper()!!).postDelayed({
-//            findNavController().navigate(R.id.signupActivity)
-//        },4000)
 
         return view
     }

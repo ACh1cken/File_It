@@ -50,15 +50,7 @@
 
     </RelativeLayout>
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginBottom="24dp"
-        android:text="Button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
@@ -160,6 +152,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/constraintLayout"
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout2" />
+
+    <ImageButton
+        android:id="@+id/create_new_help"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/white"
+        android:src="@drawable/ic_baseline_help_24"
+        app:layout_constraintEnd_toEndOf="@+id/EntrySortButton"
+        app:layout_constraintStart_toStartOf="@+id/EntrySortButton"
+        app:layout_constraintTop_toBottomOf="@+id/EntrySortButton" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

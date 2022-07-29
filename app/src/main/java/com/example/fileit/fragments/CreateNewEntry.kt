@@ -1,5 +1,6 @@
 package com.example.fileit.fragments
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -48,29 +49,28 @@ class CreateNewEntry : Fragment(){
         // Inflate the layout for this fragment
         val  view =  inflater.inflate(R.layout.fragment_create_new_entry, container, false)
 
+        val helpButton = view.findViewById<ImageButton>(R.id.create_new_help)
+
+
+        helpButton.setOnClickListener{
+            AlertDialog.Builder(requireContext())
+                .setTitle("Help center.")
+                .setMessage("Press on individual item view their details, as well as delete them. Create new " +
+                        "entry by pressing the plus button below. ")
+                .setPositiveButton("Okay"){_,_ ->}
+                .show()
+        }
+
         val spinner = view.findViewById<Spinner>(R.id.createNewEntrySpinner)
-//        val years = resources.getStringArray(R.array.spinner_placeholder)
-//        val adapter = ArrayAdapter.createFromResource(requireActivity().applicationContext,R.array.spinner_placeholder,android.R.layout.simple_spinner_dropdown_item)
         val arraylist = populateArray(currentYear)
 
         val adapter: ArrayAdapter<String> = ArrayAdapter<String>(
             requireActivity().applicationContext,
             android.R.layout.simple_spinner_dropdown_item, arraylist
         )
-//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
         spinner.adapter = adapter
 
-//        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-//            override fun onItemSelected(parent: AdapterView<*>?, view: View?, pos: Int, id: Long) {
-//                if (parent != null) {
-//                    Log.e("Spinner",parent.getItemAtPosition(pos).toString())
-//                }else Log.e("Spinner","Null parent")
-//            }
-//
-//            override fun onNothingSelected(p0: AdapterView<*>?) {
-//
-//            }
-//        }
 
         bundle.putString("Year",null)
 
@@ -78,7 +78,7 @@ class CreateNewEntry : Fragment(){
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
 
                 bundle.putString("Year",p0!!.getItemAtPosition(p2).toString())
-                Log.e("Spinner",bundle.get("Year").toString())
+//                Log.e("Spinner",bundle.get("Year").toString())
 
                 documentAdapter?.stopListening()
                 setupRecyclerViewSpecific(bundle.get("Year").toString())
@@ -88,7 +88,7 @@ class CreateNewEntry : Fragment(){
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
-                Log.e("Spinner","Nothing Selected")
+//                Log.e("Spinner","Nothing Selected")
                 bundle.putString("Year",null)
             }
 

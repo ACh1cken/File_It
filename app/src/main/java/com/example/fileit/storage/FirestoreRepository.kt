@@ -1,11 +1,11 @@
 package com.example.fileit.storage
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.fileit.database.Year
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
-import com.shapesecurity.salvation2.Values.Hash
+import com.google.firebase.storage.FirebaseStorage
 
 class FirestoreRepository {
     private var _firestoreLiveData: MutableLiveData<List<DocumentModel>> = MutableLiveData(emptyList())
@@ -70,11 +70,47 @@ class FirestoreRepository {
     fun stopListener(){
         storageRefListener.remove()
     }
+    fun deleteAccount() {
+        FirebaseFirestore.getInstance()
+            .collection("users").document(userUid!!)
+            .collection("documents")
+            .get()
+            .addOnSuccessListener {
+                    documents ->
+                for (document in documents) {
+                    Log.e("delete all document", "${document.data}")
+
+                    val storage = FirebaseStorage.getInstance()
+
+                    val deleteRef = storage.getReferenceFromUrl(document.data["downloadURL"] as String)
 
 
+                    deleteRef.delete().addOnCompleteListener {
+                        Log.e("Delete", "File deleted at ${document.data["downloadURL"]}")
 
-    fun getData(): LiveData<List<DocumentModel>> {
+                    }.addOnFailureListener {
+                        Log.e("Delete", "${document.data["downloadURL"]} not deleted")
+                    }
 
-        return firestoreLiveData
+                    document.reference.delete().addOnFailureListener{
+                        Log.e("Delete", "${document.data} not deleted")
+                    }.addOnCompleteListener {
+                        Log.e("Delete","${document.data} is deleted")
+                    }
+
+                }
+                FirebaseFirestore.getInstance()
+                    .collection("users").document(userUid)
+                    .get()
+                    .addOnSuccessListener{
+                        it.reference.delete()
+                        FirebaseAuth.getInstance().currentUser!!.delete()
+
+                    }
+
+
+            }
+
     }
+
 }

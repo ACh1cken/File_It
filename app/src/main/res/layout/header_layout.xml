@@ -7,10 +7,10 @@
     android:background="@color/green_500">
 
     <ImageView
-        android:layout_width="75dp"
-        android:layout_height="75dp"
         android:id="@+id/menu_icon"
-        android:src="@drawable/ic_baseline_android_placeholder"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/fileit_logo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

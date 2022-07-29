@@ -3,7 +3,7 @@ package com.example.fileit.storage
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
-import android.util.Log
+//import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -29,24 +29,24 @@ class DocumentAdapter(options: FirestoreRecyclerOptions<DocumentModel>, context:
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DocumentViewHolder {
-        Log.e("onCreateViewHolder","Viewholdercreation")
+//        Log.e("onCreateViewHolder","Viewholdercreation")
         return DocumentViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.new_entry_cardview,parent,false))
     }
 
     override fun onBindViewHolder(holder: DocumentViewHolder, position: Int, model: DocumentModel) {
         holder.filename.text = model.filename
         holder.fileyear.text = model.year
-        Log.e("Query","${model.filename}")
+//        Log.e("Query","${model.filename}")
         //addmorefields
         holder.itemView.setOnClickListener{
-            greyBackground.visibility = View.VISIBLE
+//            greyBackground.visibility = View.VISIBLE
             showPopup(it,model)
         }
 
     }
 
     override fun onError(e: FirebaseFirestoreException) {
-        Log.e("FirestoreRecycler",e.message!!)
+//        Log.e("FirestoreRecycler",e.message!!)
         super.onError(e)
     }
 
@@ -78,26 +78,26 @@ class DocumentAdapter(options: FirestoreRecyclerOptions<DocumentModel>, context:
         fileYear.append(model.year)
         if(model.fileAmount != 0){
             fileAmount.append(model.fileAmount.toString())
-            file_description.visibility = View.VISIBLE
+            fileAmount.visibility = View.VISIBLE
         }
 
 
         dismissButton.setOnClickListener(){
-            Log.e("Popup","Dismissed")
+//            Log.e("Popup","Dismissed")
             popupWindow.dismiss()
         }
 
         popupWindow.setOnDismissListener {
-            greyBackground.visibility = View.GONE
+//            greyBackground.visibility = View.GONE
         }
 
 
         deleteButton.setOnClickListener{
-            Log.e("DeleteButton","Test")
+//            Log.e("DeleteButton","Test")
 
             //dim background
 
-            val alertDialog = AlertDialog
+             AlertDialog
                 .Builder(mContext)
                 .setMessage("Delete the file permanently from cloud? (Cannot be recovered)")
                 .setPositiveButton("Confirm") { dialog, id ->
@@ -115,7 +115,7 @@ class DocumentAdapter(options: FirestoreRecyclerOptions<DocumentModel>, context:
     }
     private fun deleteEntry(filename: String, docType: String, year: String, ) {
 //Creat
-        Log.e("Delete Entry","$filename, $docType, $year")
+//        Log.e("Delete Entry","$filename, $docType, $year")
         var query = docRef
             .whereEqualTo("filename",filename)
             .whereEqualTo("docType",docType)
@@ -125,21 +125,21 @@ class DocumentAdapter(options: FirestoreRecyclerOptions<DocumentModel>, context:
             .addOnSuccessListener {
                 documents ->
                 for(document in documents){
-                    Log.e("delete document","${document.data}")
+//                    Log.e("delete document","${document.data}")
                     val storage = FirebaseStorage.getInstance()
                     val deleteRef = storage.getReferenceFromUrl(document.data["downloadURL"] as String)
                     deleteRef.delete().addOnSuccessListener {
-                        Log.e("Delete","File deleted at ${document.data["downloadURL"]}")
+//                        Log.e("Delete","File deleted at ${document.data["downloadURL"]}")
                         document.reference.delete()
                     }.addOnFailureListener{
-                        Log.e("Delete","${document.data["downloadURL"]} not deleted")
+//                        Log.e("Delete","${document.data["downloadURL"]} not deleted")
                     }
                 }
 
             }
             .addOnFailureListener{
                 Toast.makeText(mContext,"Document does not exist",Toast.LENGTH_SHORT).show()
-                Log.e("Delete",it.message.toString())
+//                Log.e("Delete",it.message.toString())
             }
 
 

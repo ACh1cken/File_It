@@ -27,13 +27,20 @@
 
             />
 
+
+        <item
+            android:id="@+id/reminderFragment"
+            android:icon="@drawable/ic_baseline_calendar_month_24"
+            android:title="Reminder"
+            android:checkable="true"
+
+            />
         <item
             android:id="@+id/settingsFragment"
             android:icon="@drawable/ic_settings"
             android:title="Settings"
             android:checkable="true"
 
-           />
-
+            />
 
 </menu>
