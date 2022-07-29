@@ -1,6 +1,6 @@
 package com.example.fileit.webcrawler
 
-import android.util.Log
+//import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,8 +8,6 @@ import androidx.lifecycle.viewModelScope
 import it.skrape.core.htmlDocument
 import it.skrape.fetcher.*
 import it.skrape.selects.html5.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 
 data class ExtractedData (
@@ -31,7 +29,7 @@ class webcrawler : ViewModel() {
     var _initCount : Int = 0
 
     init {
-        Log.e("ViewModel","Created")
+//        Log.e("ViewModel","Created")
         }
 
     fun updateInit(){

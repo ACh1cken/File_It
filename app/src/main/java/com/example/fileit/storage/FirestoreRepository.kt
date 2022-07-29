@@ -1,14 +1,11 @@
 package com.example.fileit.storage
 
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.fileit.database.Year
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
 import com.google.firebase.storage.FirebaseStorage
-import com.shapesecurity.salvation2.Values.Hash
 
 class FirestoreRepository {
     private var _firestoreLiveData: MutableLiveData<List<DocumentModel>> = MutableLiveData(emptyList())

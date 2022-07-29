@@ -8,7 +8,7 @@ import android.os.Handler
 import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
+//import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -129,7 +129,7 @@ class NewEntryDetailsFragment : Fragment() {
 
                 if (p0!!.getItemAtPosition(p2).toString()!= "-Select File Type-") {
                     bundle.putString("fileType", p0!!.getItemAtPosition(p2).toString())
-                    Log.e("FileTypeSpinner", bundle.get("fileType").toString())
+//                    Log.e("FileTypeSpinner", bundle.get("fileType").toString())
                     if(!hasSelectedFileType) {
                         progressBarProgress += 25
                         updateProgress()
@@ -139,7 +139,7 @@ class NewEntryDetailsFragment : Fragment() {
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
-                Log.e("FileTypeSpinner","Nothing Selected")
+//                Log.e("FileTypeSpinner","Nothing Selected")
                 bundle.putString("fileType",null)
             }
 
@@ -149,7 +149,7 @@ class NewEntryDetailsFragment : Fragment() {
 
                 if (p0!!.getItemAtPosition(p2).toString()!= "-Select Year-") {
                     bundle.putString("fileYear", p0!!.getItemAtPosition(p2).toString())
-                    Log.e("Spinner", bundle.get("fileYear").toString())
+//                    Log.e("Spinner", bundle.get("fileYear").toString())
                     if (!hasSelectedYearSpinner) {
                         progressBarProgress += 25
                         updateProgress()
@@ -160,7 +160,7 @@ class NewEntryDetailsFragment : Fragment() {
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
-                Log.e("Spinner","Nothing Selected")
+//                Log.e("Spinner","Nothing Selected")
                 bundle.putString("fileYear",null)
             }
 
@@ -192,7 +192,7 @@ class NewEntryDetailsFragment : Fragment() {
                             progressBarProgress += 25
                             updateProgress()
                             bundle.putString("fileName",fileNameEditText.text.toString())
-                            Log.e("FileName",bundle.get("fileName").toString())
+//                            Log.e("FileName",bundle.get("fileName").toString())
                         }else{
                             if (progressBarProgress > 0){
                                 progressBarProgress -= 25
@@ -223,7 +223,7 @@ class NewEntryDetailsFragment : Fragment() {
                                 }else{
                                     bundle.putString("additional_description",null)
                                 }
-                                Log.e("EditText",bundle.get("additional_description").toString())
+//                                Log.e("EditText",bundle.get("additional_description").toString())
 
                                 Count[0] = 0
                             }, 3000)
@@ -256,7 +256,7 @@ class NewEntryDetailsFragment : Fragment() {
                                 }else{
                                     bundle.putInt("amount",0)
                                 }
-                                Log.e("EditText",bundle.get("amount").toString())
+//                                Log.e("EditText",bundle.get("amount").toString())
 
                                 Count[0] = 0
                             }, 3000)
@@ -289,7 +289,7 @@ class NewEntryDetailsFragment : Fragment() {
 
 
                 if (it.data?.data != null) {
-                    Log.e("FileUri", it.data!!.data.toString())
+//                    Log.e("FileUri", it.data!!.data.toString())
                     fileUri = it.data!!.data
                     var filename = it.data!!.data!!.lastPathSegment
 
@@ -297,7 +297,7 @@ class NewEntryDetailsFragment : Fragment() {
                     upload(fileUri!!,bundle.get("fileName").toString())
 //                    uploadProgressBar?.visibility = View.VISIBLE
                 }else{
-                    Log.e("FileUri","NULL")
+//                    Log.e("FileUri","NULL")
                 }
             }
         }
@@ -314,7 +314,7 @@ class NewEntryDetailsFragment : Fragment() {
             Toast.makeText(context,"File uploaded successfully", Toast.LENGTH_LONG).show()
             uploadRef.downloadUrl.addOnSuccessListener{
 //                uploadProgressBar?.visibility = View.GONE
-                Log.e("DownloadUrl",it.toString())
+//                Log.e("DownloadUrl",it.toString())
                 val downloadUrl = it.toString()
 
                 submitButton.setBackgroundColor(ContextCompat.getColor(requireActivity().applicationContext,R.color.teal_200))
@@ -350,7 +350,7 @@ class NewEntryDetailsFragment : Fragment() {
                             progressBarProgress += 25
                             updateProgress()
                             bundle.putString("fileName",fileNameEditText.text.toString())
-                            Log.e("FileName",bundle.get("fileName").toString())
+//                            Log.e("FileName",bundle.get("fileName").toString())
                         }else{
                             if (progressBarProgress > 0){
                                 progressBarProgress -= 25
@@ -365,7 +365,7 @@ class NewEntryDetailsFragment : Fragment() {
                         }else{
                             bundle.putString("additional_description",null)
                         }
-                        Log.e("EditText",bundle.get("additional_description").toString())
+//                        Log.e("EditText",bundle.get("additional_description").toString())
 
 
 
@@ -392,7 +392,7 @@ class NewEntryDetailsFragment : Fragment() {
 
             .addOnProgressListener {
                 var progress: Long =Math.round (((100.0 * it.bytesTransferred) / it.totalByteCount))
-                Log.e("Progress","Current progress $progress Size: ${it.totalByteCount}")
+//                Log.e("Progress","Current progress $progress Size: ${it.totalByteCount}")
                 fileUploadProgressBar!!.progress = progress.toInt()
 
                 fileUploadProgressBarText.setText("$progress%")
@@ -421,9 +421,9 @@ class NewEntryDetailsFragment : Fragment() {
                         userRef.get().addOnCompleteListener {
 
                             var docSnapshot: DocumentSnapshot = it.result
-                            Log.e("Snapshot", docSnapshot.toString())
+//                            Log.e("Snapshot", docSnapshot.toString())
                             dnum = docSnapshot.get("d_num").toString().toInt()
-                            Log.e("d_Num", "$dnum")
+//                            Log.e("d_Num", "$dnum")
 
                             userRef.collection("documents").document().set(
                                 Documents(
@@ -450,9 +450,9 @@ class NewEntryDetailsFragment : Fragment() {
                         userRef.get().addOnCompleteListener {
 
                             var docSnapshot: DocumentSnapshot = it.result
-                            Log.e("Snapshot", docSnapshot.toString())
+//                            Log.e("Snapshot", docSnapshot.toString())
                             dnum = docSnapshot.get("d_num").toString().toInt()
-                            Log.e("d_Num", "$dnum")
+//                            Log.e("d_Num", "$dnum")
 
                             userRef.collection("documents").document().set(
                                 Documents(
@@ -473,9 +473,9 @@ class NewEntryDetailsFragment : Fragment() {
 
 
         }
-            .addOnFailureListener{
-                it.message?.let { it1 -> Log.e("GET", it1) }
-            }
+//            .addOnFailureListener{
+//                it.message?.let { it1 -> Log.e("GET", it1) }
+//            }
     }
 
     //Functions

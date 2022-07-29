@@ -8,7 +8,6 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,8 +17,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.fileit.R
-import kotlinx.android.synthetic.main.fragment_reminder.*
-import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -88,28 +85,16 @@ class ReminderFragment : Fragment() {
 
 
 
-            //Log.d("Alarm","Saved date is ${android.text.format.DateFormat.getLongDateFormat(requireContext()).format(Date(myCalendar.timeInMillis))}")
 
-
-            //            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S){
-//                alarmUp = PendingIntent
-//                    .getBroadcast(
-//                        requireContext(), 101,
-//                        Intent(requireActivity(),BootReceiver::class.java),
-//                        PendingIntent.FLAG_MUTABLE
-//                    ) != null
-//            }
 
             if (alarmUp) {
 
-                //Log.e("Alarm", "Alarm is already active")
                 val pendingIntent = PendingIntent
                     .getBroadcast(
                         requireContext(), 1,
                         Intent(requireActivity(),BootReceiver::class.java),
                         PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE)
                 alarmManager.cancel(pendingIntent)
-                //Log.e("Alarm", "Alarm is cancelled due to reminder.")
             }
 
         }else{
@@ -125,14 +110,14 @@ class ReminderFragment : Fragment() {
                 reminderCancelButton.visibility = View.GONE
                 cancelReminderText.visibility = View.GONE
                 reminderCancelButton.setOnClickListener{
-                    Log.e("Alarm", "Alarm is already active")
+//                    Log.e("Alarm", "Alarm is already active")
                     val pendingIntent = PendingIntent
                         .getBroadcast(
                             requireContext(), 1,
                             Intent(requireActivity(),BootReceiver::class.java),
                             PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE)
 
-                    Log.e("Alarm", "Alarm is cancelled due to reminder.")
+//                    Log.e("Alarm", "Alarm is cancelled due to reminder.")
                     AlertDialog.Builder(requireContext())
                         .setTitle("Reminder cancelled")
                         .setMessage(

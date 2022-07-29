@@ -1,6 +1,6 @@
 package com.example.fileit.fragments
 
-import android.util.Log
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +9,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fileit.R
 import com.example.fileit.webcrawler.ExtractedData
-import java.util.*
 
 class AnnouncementRecyclerAdapter(
 //    private val onClickListener :(View,String?)-> Unit
@@ -25,7 +24,7 @@ val listener: onClickListener
         parent: ViewGroup,
         viewType: Int
     ): AnnouncementRecyclerAdapter.ViewHolder {
-        Log.e("CREATE","LOG: CALLED CREATE")
+//        Log.e("CREATE","LOG: CALLED CREATE")
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.announcement_layout_card,parent,false)
 
 
@@ -41,7 +40,7 @@ val listener: onClickListener
 //            index = position + 1
 //        }
         val currentItem = extractedData[position]
-        Log.e("BIND","LOG: CALLED BIND")
+//        Log.e("BIND","LOG: CALLED BIND")
         if (currentItem.announcement.isNullOrBlank()){
             holder.itemView.layoutParams = LinearLayout.LayoutParams(0,0)
             println(currentItem.announcement.isNullOrBlank())
@@ -55,7 +54,7 @@ val listener: onClickListener
 
 
     override fun getItemCount(): Int {
-        println("LOG.SIZE: " +extractedData.size)
+//        println("LOG.SIZE: " +extractedData.size)
         return extractedData.size
     }
 
@@ -74,7 +73,7 @@ val listener: onClickListener
 
     fun setData(list:List<ExtractedData>){
         this.extractedData = list
-        Log.e("Observe","Observer called")
+//        Log.e("Observe","Observer called")
     }
 
 }

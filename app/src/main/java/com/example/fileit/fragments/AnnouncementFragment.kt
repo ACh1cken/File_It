@@ -1,32 +1,22 @@
 package com.example.fileit.fragments
 
 import android.app.AlertDialog
-import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
-import android.os.Parcelable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
-import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fileit.R
-import com.example.fileit.webcrawler.ExtractedData
 import com.example.fileit.webcrawler.webcrawler
-import kotlinx.android.synthetic.main.activity_main_page.*
-import kotlinx.coroutines.*
-import org.w3c.dom.Text
-import java.util.*
 
 
 class AnnouncementFragment : Fragment() , AnnouncementRecyclerAdapter.onClickListener{
@@ -41,7 +31,7 @@ class AnnouncementFragment : Fragment() , AnnouncementRecyclerAdapter.onClickLis
         if(model._initCount == 0) {
             model.updateData()
             model.updateInit()
-            Log.e("init",model._initCount.toString())
+//            Log.e("init",model._initCount.toString())
         }
 
 
@@ -100,7 +90,7 @@ class AnnouncementFragment : Fragment() , AnnouncementRecyclerAdapter.onClickLis
 
     override fun onItemClick(string: String?) {
         //showToast("Test"+ position)
-        Log.e("Click", " $string")
+//        Log.e("Click", " $string")
         startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(string)))
     }
 

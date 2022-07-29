@@ -4,14 +4,12 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.findFragment
 import com.example.fileit.MainActivity
 import com.example.fileit.R
 import com.example.fileit.auth.SignupActivity
@@ -64,7 +62,7 @@ class SettingsFragment : Fragment() {
             val userEmail = auth.currentUser!!.email
             email_display.text = userEmail
             uid_display.text = userUid
-            Log.e("Settings",userUid+userEmail)
+//            Log.e("Settings",userUid+userEmail)
 
 
         //shared perference for reminder

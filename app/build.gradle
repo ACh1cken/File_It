@@ -6,6 +6,12 @@ plugins {
     id 'com.google.gms.google-services'
 //    id 'kotlin-parcelize'
 }
+configurations {
+    all {
+        exclude module: 'httpclient'
+        exclude module: 'commons-logging'
+    }
+}
 
 android {
     compileSdk 31

@@ -17,21 +17,6 @@ import com.example.fileit.storage.FirestoreViewModel
 class ViewExistingFragment : Fragment() {
 
 private val viewModel : FirestoreViewModel by activityViewModels()
-    //Firebase Related boilerplate code
-//    private val db = FirebaseFirestore.getInstance()
-//    val userUid = FirebaseAuth.getInstance().uid
-//    private val docRef = db.collection("users").document(userUid!!).collection("documents")
-//    private lateinit var userEmail: String
-//    private lateinit var storageChildRef : StorageReference
-    //End of Firebase Related
-
-//    private lateinit var querySnapshot: QuerySnapshot
-//    var query : Task<QuerySnapshot> = docRef.get()
-//        .addOnSuccessListener {
-//            querySnapshot = it
-//        }
-
-
 
 
     override fun onCreateView(

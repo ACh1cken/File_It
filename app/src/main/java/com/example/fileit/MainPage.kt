@@ -2,7 +2,7 @@ package com.example.fileit
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
+//import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
@@ -68,7 +68,7 @@ class MainPage : AppCompatActivity() {
 
 
         navigationView.setNavigationItemSelectedListener{
-            Log.e("Listener","Listener called")
+//            Log.e("Listener","Listener called")
             when(it.itemId) {
                 R.id.announcementFragment -> {
                     fragmentContainerView2.findNavController().navigate(R.id.announcementFragment,
@@ -154,7 +154,7 @@ class MainPage : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val navcontroller : NavController = fragmentContainerView2.findNavController()
-        Log.e("OnOptionsItemSelected","Called")
+//        Log.e("OnOptionsItemSelected","Called")
         println(item)
         val announcementFragment = AnnouncementFragment()
         when(item.itemId){
