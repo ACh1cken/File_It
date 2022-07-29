@@ -42,7 +42,7 @@ class WelcomePageInput : Fragment() {
                 )
             }
 
-            findNavController().navigate(R.id.welcomePageDisplay,bundle)
+//            findNavController().navigate(R.id.welcomePageDisplay,bundle)
 
         }
         return view

@@ -30,9 +30,9 @@ class WelcomePageDisplay : Fragment() {
         usernameDisplay.text  = arguments?.getString("user_name")
 
 
-        Handler(Looper.myLooper()!!).postDelayed({
-            findNavController().navigate(R.id.mainPage)
-        },4000)
+//        Handler(Looper.myLooper()!!).postDelayed({
+//            findNavController().navigate(R.id.signupActivity)
+//        },4000)
 
         return view
     }

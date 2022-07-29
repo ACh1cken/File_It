@@ -14,5 +14,12 @@
     <color name="blue_2">#D6E6F2</color>
     <color name="blue_3">#B9D7EA</color>
     <color name="blue_4">#769FCD</color>
+    <color name="WhiteGray">#D1D1D1</color>
+    <color name="solidGrey">#606060</color>
+    <color name="transparent">#00D3CFCF</color>
+    <color name="lightGrey">#BDBDBD</color>
+    <color name="red">#FF0000</color>
+
+
 
 </resources>

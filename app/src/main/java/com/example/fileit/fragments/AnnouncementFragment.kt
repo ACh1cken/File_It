@@ -1,42 +1,51 @@
 package com.example.fileit.fragments
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.os.Parcelable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fileit.R
+import com.example.fileit.webcrawler.ExtractedData
 import com.example.fileit.webcrawler.webcrawler
-import kotlinx.android.synthetic.main.fragment_announcement.*
+import kotlinx.android.synthetic.main.activity_main_page.*
 import kotlinx.coroutines.*
-import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.Dispatchers.Main
-import java.lang.Exception
-import java.net.SocketException
-import java.net.SocketTimeoutException
 
 
-class AnnouncementFragment : Fragment() {
+class AnnouncementFragment : Fragment() , AnnouncementRecyclerAdapter.onClickListener{
     private lateinit var job : CompletableJob
 //    val supervisor = SupervisorJob()
 //    private lateinit var datalist : List<ExtractedData>
+    private val model : webcrawler by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val model : webcrawler by viewModels()
+
+        if(model._initCount == 0) {
+            model.updateData()
+            model.updateInit()
+            Log.e("init",model._initCount.toString())
+        }
+
 
         val recyclerview = view.findViewById<RecyclerView>(R.id.announcementRecyclerView)
 
-        val announcementadapter = AnnouncementRecyclerAdapter()
+        val announcementadapter = AnnouncementRecyclerAdapter(this)
         recyclerview.adapter = announcementadapter
         recyclerview.layoutManager = LinearLayoutManager(activity)
         recyclerview.setHasFixedSize(false)
 
+
         model.extractedData.observe(viewLifecycleOwner) { list ->
             announcementadapter.setData(list)
+            
             announcementadapter.notifyDataSetChanged()
         }
         super.onViewCreated(view, savedInstanceState)
@@ -49,7 +58,6 @@ class AnnouncementFragment : Fragment() {
 
             // Inflate the layout for this fragment
             val view = inflater.inflate(R.layout.fragment_announcement, container, false)
-
 
 
 
@@ -69,36 +77,46 @@ class AnnouncementFragment : Fragment() {
 
             return view
     }
+//
+//    private fun initJob(viewModel: webcrawler) {
+//        job = Job()
+//        startJob(job,viewModel)
+//
+//        job.invokeOnCompletion {
+//            it?.message.let{
+//                var msg = it
+//                if (msg.isNullOrBlank()){
+//                    msg = "Unknown Error"
+//                }
+//                println("$job was cancelled. Reason $msg")
+//                showToast(msg)
+//            }
+//        }
+//    }
 
-    private fun initJob(viewModel: webcrawler) {
-        job = Job()
-        startJob(job,viewModel)
+//    fun showToast(text: String){
+//        GlobalScope.launch(Main) {
+//            Toast.makeText( context,text,Toast.LENGTH_SHORT).show()
+//        }
+//    }
+//
+//    fun startJob(job: Job,model: webcrawler){
+//        CoroutineScope(IO+job).launch{
+//            withTimeout(14000L){
+//                model.updateData()
+//
+//            }
+//        }
+//    }
 
-        job.invokeOnCompletion {
-            it?.message.let{
-                var msg = it
-                if (msg.isNullOrBlank()){
-                    msg = "Unknown Error"
-                }
-                println("$job was cancelled. Reason $msg")
-                showToast(msg)
-            }
-        }
+    override fun onItemClick(string: String?) {
+        //showToast("Test"+ position)
+        Log.e("Click", " $string")
+        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(string)))
     }
 
-    fun showToast(text: String){
-        GlobalScope.launch(Main) {
-            Toast.makeText( context,text,Toast.LENGTH_SHORT).show()
-        }
-    }
 
-    fun startJob(job: Job,model: webcrawler){
-        CoroutineScope(IO+job).launch{
-            withTimeout(14000L){
-                model.updateData()
 
-            }
-        }
-    }
+    
 
 }

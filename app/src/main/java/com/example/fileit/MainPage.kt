@@ -1,22 +1,24 @@
 package com.example.fileit
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
-import android.view.View
-import android.widget.Toolbar
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navOptions
 import androidx.navigation.ui.*
+import com.example.fileit.auth.SignupActivity
 import com.example.fileit.fragments.AnnouncementFragment
+import com.example.fileit.webcrawler.webcrawler
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuth.AuthStateListener
 import kotlinx.android.synthetic.main.activity_main_page.*
 
 
@@ -27,10 +29,22 @@ class MainPage : AppCompatActivity() {
     private lateinit var navigationView: NavigationView
     private lateinit var appBarConfiguration: AppBarConfiguration
 
+    private lateinit var auth: FirebaseAuth
+    private lateinit var authStateListener: FirebaseAuth.AuthStateListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_page)
+
+        auth = FirebaseAuth.getInstance()
+        authStateListener = AuthStateListener {
+            val user = auth.currentUser
+            if (user == null) {
+                val intent = Intent(this, SignupActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+        }
 
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
@@ -50,19 +64,48 @@ class MainPage : AppCompatActivity() {
             Log.e("Listener","Listener called")
             when(it.itemId) {
                 R.id.announcementFragment -> {
-                    fragmentContainerView2.findNavController().navigate(R.id.announcementFragment)
+                    fragmentContainerView2.findNavController().navigate(R.id.announcementFragment,
+                        null,
+                        navOptions {
+                            anim {
+                                enter = android.R.animator.fade_in
+                                exit = android.R.animator.fade_out
+                            }
+                        })
                     drawerLayout.closeDrawer(GravityCompat.START)
                 }
                 R.id.viewExistingFragment -> {
-                    fragmentContainerView2.findNavController().navigate(R.id.viewExistingFragment)
+                    fragmentContainerView2.findNavController().navigate(R.id.viewExistingFragment,
+                        null,
+                        navOptions {
+                            anim {
+                                enter = android.R.animator.fade_in
+                                exit = android.R.animator.fade_out
+                            }
+                        })
                     drawerLayout.closeDrawer(GravityCompat.START)
                 }
                 R.id.createNewEntry -> {
-                    fragmentContainerView2.findNavController().navigate(R.id.createNewEntry)
+                    fragmentContainerView2.findNavController().navigate(R.id.createNewEntry,
+                        null,
+                        navOptions {
+                            anim {
+                                enter = android.R.animator.fade_in
+                                exit = android.R.animator.fade_out
+                            }
+                        })
+//                    fragmentContainerView2.findNavController().navigate(R.id.appStorage)
                     drawerLayout.closeDrawer (GravityCompat.START)
                 }
                 R.id.settingsFragment -> {
-                    fragmentContainerView2.findNavController().navigate(R.id.settingsFragment)
+                    fragmentContainerView2.findNavController().navigate(R.id.settingsFragment,
+                        null,
+                        navOptions {
+                            anim {
+                                enter = android.R.animator.fade_in
+                                exit = android.R.animator.fade_out
+                            }
+                        })
                     drawerLayout.closeDrawer(GravityCompat.START)
                 }
             }

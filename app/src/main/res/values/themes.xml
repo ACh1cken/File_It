@@ -36,4 +36,10 @@
     <style name="Theme.FileIt.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.FileIt.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="CircularDeterminateProgressBar">
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:progressDrawable">@drawable/ic_spinning_progressbar</item>
+    </style>
+
 </resources>
