@@ -27,7 +27,6 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import kotlinx.android.synthetic.main.activity_main_page.*
-import kotlinx.android.synthetic.main.fragment_appstorage.*
 import kotlinx.android.synthetic.main.fragment_new_entry_details.*
 import java.util.Calendar
 
@@ -59,6 +58,10 @@ class NewEntryDetailsFragment : Fragment() {
     private var childLabel:String? =null
     //End of Firebase Related
 
+    private lateinit var fileAmountEditText : EditText
+    private lateinit var fileNameEditText : EditText
+    private lateinit var fileAdditionalDescription : EditText
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -73,10 +76,10 @@ class NewEntryDetailsFragment : Fragment() {
 
 //        val documentProgress = view.findViewById<ProgressBar>(R.id.new_entry_details_documentCompletion_progressBar)
 
-        val fileNameEditText = view.findViewById<EditText>(R.id.new_entry_details_fileName_editText)
-        val fileAdditionalDescription = view.findViewById<EditText>(R.id.new_entry_details_description_editText)
+        fileNameEditText = view.findViewById<EditText>(R.id.new_entry_details_fileName_editText)
+        fileAdditionalDescription = view.findViewById<EditText>(R.id.new_entry_details_description_editText)
 
-        val fileAmountEditText = view.findViewById<EditText>(R.id.new_entry_details_amount_editText)
+        fileAmountEditText = view.findViewById<EditText>(R.id.new_entry_details_amount_editText)
 
         val fileUploadButton = view.findViewById<ImageButton>(R.id.fileUploadButton)
         submitButton = view.findViewById<Button>(R.id.new_entry_details_submitButton)
@@ -214,7 +217,7 @@ class NewEntryDetailsFragment : Fragment() {
                         if(Count[0] == 0){
                             Count[0]++
                             Handler(Looper.getMainLooper()).postDelayed(Runnable {
-                                if (fileNameEditText.text.isNotEmpty()){
+                                if (fileAdditionalDescription.text.isNotEmpty()){
                                     bundle.putString("additional_description",fileAdditionalDescription.text.toString())
 
                                 }else{
@@ -312,6 +315,7 @@ class NewEntryDetailsFragment : Fragment() {
             uploadRef.downloadUrl.addOnSuccessListener{
 //                uploadProgressBar?.visibility = View.GONE
                 Log.e("DownloadUrl",it.toString())
+                val downloadUrl = it.toString()
 
                 submitButton.setBackgroundColor(ContextCompat.getColor(requireActivity().applicationContext,R.color.teal_200))
 
@@ -327,10 +331,51 @@ class NewEntryDetailsFragment : Fragment() {
 
 //                upload(fileUri!!, bundle.get("fileName").toString())
                         //Submit details to db
-                        updateDB(fileUri!!,bundle.getString("fileYear").toString(),
+
+                        //Amount
+                        if (fileAmountEditText.text.isNotEmpty()){
+                            var int1 = 0
+                            try{
+                                int1 = Integer.parseInt(fileAmountEditText.text.toString())
+                            }catch (nfe:NumberFormatException){
+                                Toast.makeText(context,"This is not a proper number: $nfe",Toast.LENGTH_SHORT).show()
+                            }
+                            bundle.putInt("amount",int1)
+                        }else{
+                            bundle.putInt("amount",0)
+                        }
+
+                        //filename
+                        if (fileNameEditText.text.isNotEmpty()){
+                            progressBarProgress += 25
+                            updateProgress()
+                            bundle.putString("fileName",fileNameEditText.text.toString())
+                            Log.e("FileName",bundle.get("fileName").toString())
+                        }else{
+                            if (progressBarProgress > 0){
+                                progressBarProgress -= 25
+                                updateProgress()
+                            }
+                        }
+
+                        //description
+                        if (fileAdditionalDescription.text.isNotEmpty()){
+                            bundle.putString("additional_description",fileAdditionalDescription.text.toString())
+
+                        }else{
+                            bundle.putString("additional_description",null)
+                        }
+                        Log.e("EditText",bundle.get("additional_description").toString())
+
+
+
+
+
+
+                        updateDB(downloadUrl,bundle.getString("fileYear").toString(),
                             bundle.getString("fileType").toString(),
                             bundle.getString("additional_description").toString(),
-                            bundle.getString("filename").toString(),
+                            bundle.getString("fileName").toString(),
                             bundle.getInt("amount")
                         )
                         requireActivity().toolbar!!.visibility = View.VISIBLE
@@ -355,7 +400,7 @@ class NewEntryDetailsFragment : Fragment() {
 
     }
 
-    private fun updateDB(url: Uri, year: String, docType:String, additional_name: String?, filename: String, fileAmount : Int){
+    private fun updateDB(url: String, year: String, docType:String, additional_name: String?, filename: String, fileAmount: Int){
         val db = Firebase.firestore
         val userRef = db.collection("users").document(userUid)
         var dnum : Int

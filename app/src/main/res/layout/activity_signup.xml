@@ -14,9 +14,9 @@
         android:layout_marginTop="76dp"
         android:layout_marginEnd="142dp"
         app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/fileit_logo"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/signup_email_ed"
@@ -48,29 +48,47 @@
         android:id="@+id/loginButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="41dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="94dp"
-        android:layout_marginBottom="236dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="32dp"
+        android:width="120dp"
+        android:backgroundTint="@color/lightGrey"
+        android:minHeight="0dp"
         android:text="Back"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/signupButton"
-        app:layout_constraintTop_toBottomOf="@+id/signup_pass_ed" />
+        app:layout_constraintTop_toTopOf="@+id/signupButton" />
 
     <Button
         android:id="@+id/signupButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="93dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="224dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="236dp"
+        android:width="120dp"
+        android:backgroundTint="@color/teal_200"
+        android:minHeight="0dp"
         android:text="Sign Up"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/loginButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signup_pass_ed" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:text="Register Now"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signup_logo" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

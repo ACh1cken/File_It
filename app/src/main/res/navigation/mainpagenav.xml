@@ -32,4 +32,10 @@
         android:label="fragment_new_entry_details"
         tools:layout="@layout/fragment_new_entry_details" />
 
+    <fragment
+        android:id="@+id/reminderFragment"
+        android:name="com.example.fileit.reminder.ReminderFragment"
+        android:label="Setup Reminder"
+        tools:layout="@layout/fragment_reminder" />
+
 </navigation>

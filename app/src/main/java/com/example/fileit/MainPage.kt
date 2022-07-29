@@ -55,7 +55,14 @@ class MainPage : AppCompatActivity() {
         val navcontroller = navHostFragment.navController
         navigationView.setupWithNavController(navcontroller)
        // navcontroller = findNavController(R.id.fragmentContainerView2)
-        appBarConfiguration = AppBarConfiguration(setOf(R.id.announcementFragment,R.id.viewExistingFragment,R.id.createNewEntry,R.id.settingsFragment),drawerLayout)
+        appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.announcementFragment,
+                R.id.viewExistingFragment,
+                R.id.createNewEntry,
+                R.id.reminderFragment,
+                R.id.settingsFragment),
+            drawerLayout)
 
         setupActionBarWithNavController(navcontroller,drawerLayout)
 
@@ -99,6 +106,17 @@ class MainPage : AppCompatActivity() {
                 }
                 R.id.settingsFragment -> {
                     fragmentContainerView2.findNavController().navigate(R.id.settingsFragment,
+                        null,
+                        navOptions {
+                            anim {
+                                enter = android.R.animator.fade_in
+                                exit = android.R.animator.fade_out
+                            }
+                        })
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                }
+                R.id.reminderFragment -> {
+                    fragmentContainerView2.findNavController().navigate(R.id.reminderFragment,
                         null,
                         navOptions {
                             anim {

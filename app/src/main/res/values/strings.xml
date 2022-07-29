@@ -38,4 +38,8 @@
     <string name="login_failed">"Login failed"</string>
     <string name="e_mail_hint">Existing E-mail</string>
     <string name="password_hint">Password</string>
+    <string name="pick_date">Pick date</string>
+    <string name="set_notif">Set Notification</string>
+    <string name="reminderDate" />
+    <string name="reminder_help">Please input the date for your next tax filing deadline. The application will send a reminder each month</string>
 </resources>

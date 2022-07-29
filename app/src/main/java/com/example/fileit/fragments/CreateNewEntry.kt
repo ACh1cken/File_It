@@ -1,5 +1,6 @@
 package com.example.fileit.fragments
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -47,6 +48,18 @@ class CreateNewEntry : Fragment(){
     ): View? {
         // Inflate the layout for this fragment
         val  view =  inflater.inflate(R.layout.fragment_create_new_entry, container, false)
+
+        val helpButton = view.findViewById<ImageButton>(R.id.create_new_help)
+
+
+        helpButton.setOnClickListener{
+            AlertDialog.Builder(requireContext())
+                .setTitle("Help center.")
+                .setMessage("Press on individual item view their details, as well as delete them. Create new " +
+                        "entry by pressing the plus button below. ")
+                .setPositiveButton("Okay"){_,_ ->}
+                .show()
+        }
 
         val spinner = view.findViewById<Spinner>(R.id.createNewEntrySpinner)
 //        val years = resources.getStringArray(R.array.spinner_placeholder)

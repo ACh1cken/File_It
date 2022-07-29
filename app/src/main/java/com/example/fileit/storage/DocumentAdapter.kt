@@ -39,7 +39,7 @@ class DocumentAdapter(options: FirestoreRecyclerOptions<DocumentModel>, context:
         Log.e("Query","${model.filename}")
         //addmorefields
         holder.itemView.setOnClickListener{
-            greyBackground.visibility = View.VISIBLE
+//            greyBackground.visibility = View.VISIBLE
             showPopup(it,model)
         }
 
@@ -78,7 +78,7 @@ class DocumentAdapter(options: FirestoreRecyclerOptions<DocumentModel>, context:
         fileYear.append(model.year)
         if(model.fileAmount != 0){
             fileAmount.append(model.fileAmount.toString())
-            file_description.visibility = View.VISIBLE
+            fileAmount.visibility = View.VISIBLE
         }
 
 
@@ -88,7 +88,7 @@ class DocumentAdapter(options: FirestoreRecyclerOptions<DocumentModel>, context:
         }
 
         popupWindow.setOnDismissListener {
-            greyBackground.visibility = View.GONE
+//            greyBackground.visibility = View.GONE
         }
 
 
@@ -97,7 +97,7 @@ class DocumentAdapter(options: FirestoreRecyclerOptions<DocumentModel>, context:
 
             //dim background
 
-            val alertDialog = AlertDialog
+             AlertDialog
                 .Builder(mContext)
                 .setMessage("Delete the file permanently from cloud? (Cannot be recovered)")
                 .setPositiveButton("Confirm") { dialog, id ->
