@@ -94,7 +94,9 @@ class ReminderFragment : Fragment() {
                         requireContext(), 1,
                         Intent(requireActivity(),BootReceiver::class.java),
                         PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE)
-                alarmManager.cancel(pendingIntent)
+                if(this::alarmManager.isInitialized) {
+                    alarmManager.cancel(pendingIntent)
+                }
             }
 
         }else{
@@ -182,7 +184,7 @@ class ReminderFragment : Fragment() {
             val intent = Intent(requireContext(), BootReceiver::class.java)
             val title = "Tax reminder"
             val message = "Tax deadline is set at ${pref.getLong("ReminderDay", 1)}/" +
-                    "${pref.getLong("ReminderMonth", 1)}/" +
+                    "${pref.getLong("ReminderMonth", 1) + 1}/" +
                     "${pref.getLong("ReminderYear", 1990)}"
             intent.putExtra(titleExtra, title)
             intent.putExtra(messageExtra, message)
@@ -207,8 +209,11 @@ class ReminderFragment : Fragment() {
 
     private fun scheduleNotification(){
         val intent = Intent(requireContext(), BootReceiver::class.java)
-        val title = "Tax reminder"
-        val message = "Next monthly reminder is set "
+        val title = "Monthly Tax reminder"
+//        val message = "Next monthly reminder is set "
+        val message = "Monthly reminder is set at ${pref.getLong("ReminderDay", 1)}/" +
+                "${pref.getLong("ReminderMonth", 1)}/" +
+                "${pref.getLong("ReminderYear", 1990)}"
         intent.putExtra(titleExtra, title)
         intent.putExtra(messageExtra, message)
 
@@ -229,15 +234,15 @@ class ReminderFragment : Fragment() {
                 getTime(),
                 pendingIntent
             )
-
-            showAlert(time, title, message)
+            val message2 = "Deadline set"
+            showAlert(time, title)
         }else{
             Toast.makeText(requireContext(),"Deadline is closer than a month. Failed to set reminder.",Toast.LENGTH_SHORT).show()
         }
 
     }
 
-    private fun showAlert(time: Long, title: String, message: String) {
+    private fun showAlert(time: Long, title: String) {
 
         val date = Date(time)
         val dateFormat = android.text.format.DateFormat.getLongDateFormat(requireContext())
@@ -246,7 +251,7 @@ class ReminderFragment : Fragment() {
             .setTitle("Notification Scheduled")
             .setMessage(
                 "Title: " + title +
-                        "\nMessage: " + message +
+                        "\nMessage: "+ "Tax deadline "+
                         "\nAt: " + dateFormat.format(date))
             .setPositiveButton("Okay"){_,_ ->}
             .show()
