@@ -80,7 +80,7 @@ class AnnouncementFragment : Fragment() , AnnouncementRecyclerAdapter.onClickLis
             relativeLayout.visibility = View.VISIBLE
             reminderAnnouncementDate.text =
                 "${pref.getLong("ReminderDay", 1)}/" +
-                    "${pref.getLong("ReminderMonth", 1)}/" +
+                    "${pref.getLong("ReminderMonth", 1) + 1}/" +
                     "${pref.getLong("ReminderYear", 1990)}"
         }
 
