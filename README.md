@@ -4,3 +4,5 @@ A mobile application that aids users to keep their documents for income tax's e-
 Source code can be built with Android Studio.
 
 Download APK here : https://www.mediafire.com/file/0xmchmtn3v5nk5q/app-release.apk/file
+
+This project is done as part of an internship project given by Dr Khoh when i was interning at MMU
